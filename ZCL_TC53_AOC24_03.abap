@@ -19,7 +19,6 @@ CLASS zcl_tc53_aoc24_03 IMPLEMENTATION.
   METHOD process.
     DATA: result_tab TYPE match_result_tab.
 
-    file_handler = NEW #( filename ).
     me->stream = file_handler->get_stream( ).
     part1 = find_and_calc( stream ).
 
