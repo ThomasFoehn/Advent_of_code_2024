@@ -6,33 +6,32 @@ INHERITING FROM zcl_tc53_aoc24_utils
 
   PUBLIC SECTION.
     METHODS process REDEFINITION.
+
   PROTECTED SECTION.
   PRIVATE SECTION.
 
-
-    METHODS is_valid IMPORTING data          TYPE table
-                     RETURNING VALUE(result) TYPE i.
+    METHODS is_valid     IMPORTING data          TYPE table
+                         RETURNING VALUE(result) TYPE i.
     METHODS all_inc      IMPORTING data          TYPE table
                          RETURNING VALUE(result) TYPE abap_bool.
     METHODS all_dec      IMPORTING data          TYPE table
                          RETURNING VALUE(result) TYPE abap_bool.
-    METHODS distance_ok      IMPORTING data          TYPE table
-                             RETURNING VALUE(result) TYPE abap_bool.
-    METHODS damperer      IMPORTING data          TYPE string_table
-                          RETURNING VALUE(result) TYPE i.
+    METHODS distance_ok  IMPORTING data          TYPE table
+                         RETURNING VALUE(result) TYPE abap_bool.
+    METHODS damperer     IMPORTING data          TYPE string_table
+                         RETURNING VALUE(result) TYPE i.
 
 ENDCLASS.
 
 
 CLASS zcl_tc53_aoc24_02 IMPLEMENTATION.
 
-
   METHOD process.
     DATA: valid TYPE i.
     DATA counter1 TYPE i.
     DATA counter2 TYPE i.
     CLEAR: part1, part2.
-    file_handler = NEW #( filename ).
+
     DO.
       TRY.
           DATA(line) = file_handler->get_next_line( ).
@@ -58,10 +57,6 @@ CLASS zcl_tc53_aoc24_02 IMPLEMENTATION.
                      ELSE COND #( WHEN ( all_dec( data ) = abap_true AND distance_ok( data ) )
                      THEN 1
                      ELSE 0 ) ).
-    IF result = 0.
-      RETURN.
-    ENDIF.
-
   ENDMETHOD.
 
   METHOD all_inc.
