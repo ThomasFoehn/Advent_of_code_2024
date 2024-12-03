@@ -27,13 +27,11 @@ START-OF-SELECTION.
 
   DATA solution_class TYPE REF TO object.
   DATA: part1 TYPE i, part2 TYPE i.
-  CREATE OBJECT solution_class TYPE (solution_classname).
+  CREATE OBJECT solution_class TYPE (solution_classname) EXPORTING filename = input.
   CALL METHOD solution_class->('PROCESS')
-    EXPORTING
-      filename = input
     IMPORTING
       part1    = part1
       part2    = part2.
 
-  WRITE: / 'Part1:', part1.
-  WRITE: / 'Part2:', part2.
+  WRITE: / 'Puzzle1:', part1.
+  WRITE: / 'Puzzle2:', part2.
