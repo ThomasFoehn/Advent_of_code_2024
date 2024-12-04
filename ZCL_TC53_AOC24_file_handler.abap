@@ -4,9 +4,11 @@ CLASS zcl_tc53_aoc24_file_handler DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+    TYPES  return_table TYPE STANDARD TABLE OF string WITH EMPTY KEY.
     METHODS constructor IMPORTING input TYPE string.
     METHODS get_next_line RETURNING VALUE(result) TYPE string.
     METHODS get_stream RETURNING VALUE(result) TYPE string.
+    METHODS get_all_table RETURNING VALUE(result) TYPE return_table.
   PROTECTED SECTION.
   PRIVATE SECTION.
     DATA inputfile TYPE string.
@@ -36,6 +38,17 @@ CLASS zcl_tc53_aoc24_file_handler IMPLEMENTATION.
         EXIT.
       ENDIF.
       CONCATENATE result line INTO result.
+    ENDDO.
+  ENDMETHOD.
+
+  METHOD get_all_table.
+    DATA line TYPE string.
+    DO.
+      READ DATASET me->inputfile INTO line.
+      IF sy-subrc <> 0.
+        EXIT.
+      ENDIF.
+      APPEND line TO result.
     ENDDO.
   ENDMETHOD.
 
