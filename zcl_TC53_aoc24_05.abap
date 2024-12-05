@@ -16,8 +16,7 @@ CLASS zcl_tc53_aoc24_05 DEFINITION
     METHODS read_rules.
     METHODS sum_middle      IMPORTING linevalues    TYPE string_table
                             RETURNING VALUE(result) TYPE i.
-    METHODS check      IMPORTING linevalues    TYPE string_table
-                       RETURNING VALUE(result) TYPE abap_bool.
+
     METHODS check_with_index      IMPORTING linevalues    TYPE string_table
                                   RETURNING VALUE(result) TYPE i.
 
@@ -33,7 +32,7 @@ CLASS zcl_tc53_aoc24_05 IMPLEMENTATION.
       TRY.
           DATA(line) = file_handler->get_next_line( ).
           SPLIT line AT ',' INTO TABLE DATA(linevalues).
-          IF check( linevalues ) = abap_false.
+          IF check_with_index( linevalues ) is INITIAL.
             part1 = part1 + sum_middle( linevalues ).
           ELSE.
             part2 = part2 + corrected_sum_middle( linevalues ).
@@ -60,12 +59,6 @@ CLASS zcl_tc53_aoc24_05 IMPLEMENTATION.
 
   METHOD sum_middle.
     result = linevalues[ lines( linevalues ) / 2 ].
-  ENDMETHOD.
-
-  METHOD check.
-    result = COND #( WHEN check_with_index( linevalues ) IS NOT INITIAL
-                     THEN  abap_true
-                     ELSE  abap_false ).
   ENDMETHOD.
 
   METHOD corrected_sum_middle.
