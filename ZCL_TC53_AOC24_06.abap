@@ -43,6 +43,8 @@ CLASS zcl_tc53_aoc24_06 DEFINITION
                                     position      TYPE ty_position
                           RETURNING VALUE(result) TYPE ty_position.
     METHODS walk IMPORTING start TYPE ty_position.
+    METHODS get_max
+      RETURNING VALUE(result) TYPE i.
 ENDCLASS.
 
 
@@ -108,8 +110,8 @@ CLASS zcl_tc53_aoc24_06 IMPLEMENTATION.
     DO.
       pos = next_position( turn =  obstacle position = pos ).
       DATA(check_pos) = next_position( turn = abap_false  position = pos  ).
-      IF pos-line > 130 OR pos-line < 1 OR pos-offset < 0 OR pos-offset > 130 OR
-         check_pos-line > 130 OR check_pos-line < 1 OR check_pos-offset < 0 OR check_pos-offset > 130.
+      IF pos-line > get_max( ) OR pos-line < 1 OR pos-offset < 0 OR pos-offset > get_max( ) OR
+         check_pos-line > get_max( ) OR check_pos-line < 1 OR check_pos-offset < 0 OR check_pos-offset > get_max( ).
         EXIT.
       ENDIF.
       mark_position(  line = pos-line offset =  pos-offset ).
@@ -132,6 +134,14 @@ CLASS zcl_tc53_aoc24_06 IMPLEMENTATION.
                          WHEN 'D' THEN down( line = position-line offset = position-offset )
                          WHEN 'L' THEN left( line = position-line offset = position-offset ) ).
     ENDIF.
+  ENDMETHOD.
+
+
+  METHOD get_max.
+    result = COND #( WHEN test = abap_true
+                        THEN 10
+                        ELSE 130 ).
+
   ENDMETHOD.
 
 ENDCLASS.
