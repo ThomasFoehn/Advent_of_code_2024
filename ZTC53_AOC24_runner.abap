@@ -9,7 +9,7 @@ PARAMETERS: day TYPE i.
 PARAMETERS: test TYPE c AS CHECKBOX DEFAULT 'X'.
 
 DATA solution_class TYPE REF TO object.
-DATA: part1 TYPE i, part2 TYPE i.
+DATA: part1 TYPE int8, part2 TYPE int8.
 
 START-OF-SELECTION.
 
